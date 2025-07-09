@@ -32,12 +32,11 @@ def obtener_datos_mes(ciudad, anio, mes):
         filas = tabla.find_all("tr")[1:]
         for fila in filas:
             cols = [c.text.strip() for c in fila.find_all("td")]
-            if len(cols) == 4:
+            if len(cols) >= 3:
                 datos.append({
                     "Fecha": cols[0],
                     "Salida del sol": cols[1],
                     "Puesta del sol": cols[2],
-                    "Duración del día": cols[3],
                     "Mes": mes.title()
                 })
         return datos
@@ -65,8 +64,8 @@ def exportar_excel(df):
         for col_num, value in enumerate(df.columns.values):
             worksheet.write(0, col_num, value, header_format)
         worksheet.set_column("A:A", 25)
-        worksheet.set_column("B:D", 15)
-        worksheet.set_column("E:E", 10)
+        worksheet.set_column("B:C", 15)
+        worksheet.set_column("D:D", 10)
     output.seek(0)
     return output
 
